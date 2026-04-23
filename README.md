@@ -189,7 +189,7 @@ Beyond success rate, DexBench mandates reporting the following per task:
 ---
 
 ## Installation
-<!-- TODO: update clone URL and installation steps to match the actual released codebase -->
+<!-- NOTE: update clone URL and installation steps to match the actual released codebase -->
 
 ```bash
 # Clone the repository
