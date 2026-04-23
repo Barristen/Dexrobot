@@ -192,7 +192,7 @@ Beyond success rate, DexBench mandates reporting the following per task:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/dexbench.git
+git clone https://github.com/Barristen/dexbench.git
 cd dexbench
 
 # Create conda environment
@@ -281,7 +281,7 @@ If you use DexBench in your research, please cite:
   title   = {DexBench: A Simulation Benchmark for Dexterous Hand Manipulation},
   author  = {Your Name and Collaborators},
   year    = {2025},
-  url     = {https://github.com/your-org/dexbench}
+  url     = {https://github.com/Barristen/dexbench}
 }
 ```
 
