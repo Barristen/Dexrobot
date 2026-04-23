@@ -53,6 +53,88 @@
 DexBench is built to complement physical dexterous hand hardware. The simulation stack is designed for sim-to-real transfer, with calibration tools for joint-level dynamics gap correction.
 
 ---
+# Motivation
+
+## Why Another Benchmark?
+
+Dexterous hand manipulation is one of the hardest open problems in robotics. Unlike parallel-jaw grippers, multi-finger hands must coordinate dozens of degrees of freedom, manage complex contact dynamics, and often operate in conditions where vision alone is insufficient. Despite rapid progress in robot learning, **no existing benchmark systematically evaluates dexterous hand policies across the dimensions that matter most in practice**.
+
+DexBench was created to fill this gap.
+
+---
+
+## Landscape of Existing Benchmarks
+
+### Benchmarks Focused on Dexterous Hands
+
+**DexGraspNet / DexGraspNet 2.0**
+Provides 427M annotated grasp poses across 1,319 objects — the largest grasp dataset to date. However, it evaluates grasp *pose quality* only, with no dynamic execution, no tactile sensing, and no in-hand manipulation.
+
+**VTDexManip** *(ICLR 2025)*
+The closest existing work to DexBench: a visual-tactile pretraining + RL benchmark with 10 tasks and 182 objects. However, it uses a single hand morphology, treats tactile sensing as binary (contact / no contact), covers RL methods only, and does not evaluate cross-morphology transfer.
+
+**RobustDexGrasp** *(CoRL 2025)*
+Demonstrates 94.6% real-world success on 500+ unseen objects and dynamic scene robustness. Evaluates grasping only — no in-hand manipulation, no tactile sensing, no language conditioning.
+
+**UniDex** *(CVPR 2026)*
+A large-scale dataset spanning 8 hand morphologies with 9M paired frames. UniDex is a *dataset*, not a benchmark — it defines no standardized evaluation protocol, provides no method baseline, and does not include tactile sensing.
+
+### Broader Manipulation Benchmarks (Partial Dexterous Hand Coverage)
+
+**RoboCasa / RoboCasa365** *(ICLR 2026)*
+365 household tasks with support for humanoid platforms. Dexterous hand support is an add-on, not a core design goal. The primary end-effector throughout is a parallel-jaw gripper.
+
+**DexMimicGen**
+A data synthesis framework that auto-generates bimanual dexterous demonstrations from a small number of human teleoperation demonstrations. It is a data generation tool, not an evaluation benchmark.
+
+**RoboTwin 2.0**
+50 bimanual tasks with strong domain randomization across 5 robot platforms. Designed primarily for dual-arm gripper manipulation; dexterous hands are not the focus.
+
+**LIBERO / ALOHA / OpenVLA Benchmarks**
+The dominant evaluation platforms for VLA methods. All use parallel-jaw grippers as the end-effector. Results do not transfer to dexterous hand settings.
+
+---
+
+## Systematic Gaps in the Field
+
+Mapping existing benchmarks across the dimensions that matter for real-world dexterous manipulation reveals consistent blind spots:
+
+| Dimension | Coverage in Existing Benchmarks |
+|-----------|--------------------------------|
+| Cross-morphology evaluation (multiple hand topologies) | Near zero — UniDex has data but no protocol |
+| Tactile sensing as a controlled variable (with vs. without) | **Completely absent** |
+| Tasks that require tactile sensing to succeed | VTDexManip has weak coverage; otherwise absent |
+| Unified interface for RL + IL + VLA methods | No existing benchmark covers all three |
+| Precision insertion and force-controlled tasks | Near absent |
+| Long-horizon multi-step task chaining | Minimal |
+| Standardized tactile gain metric | **Never reported** |
+
+The field has converged on a narrow evaluation regime: single-hand grasping, parallel-jaw grippers, vision-only sensing, and either RL or VLA in isolation. This regime systematically understates the importance of tactile sensing and cross-embodiment generalization — two properties that determine whether dexterous manipulation works in the real world.
+
+---
+
+## What DexBench Contributes
+
+DexBench addresses these gaps through three concrete design decisions.
+
+**1. Tactile Gain as a First-Class Metric.**
+Every contact-sensitive task in DexBench is evaluated under two conditions: with tactile/force sensing and without. The difference in success rate — *Tactile Gain* — is reported as a primary metric. This directly answers the question hardware developers and system integrators care about most: *does adding a tactile sensor actually matter, and by how much?*
+
+**2. Standardized Cross-Morphology Evaluation Protocol.**
+DexBench defines a unified observation and action interface — based on Function-Actuator-Aligned Space (FAAS) — that allows the same policy to be evaluated across hands with different joint topologies. For the first time, cross-morphology performance drop is reported as a standard metric alongside success rate.
+
+**3. Unified Method Coverage.**
+DexBench provides reference implementations for 17 methods spanning reinforcement learning, imitation learning, and vision-language-action models under a single interface. Researchers can swap methods without modifying task or environment code, making fair comparison the default rather than the exception.
+
+---
+
+## The Core Argument
+
+> The existing benchmark ecosystem for dexterous manipulation is built around what is easy to measure — grasp pose quality, single-task success rate, vision-only sensing — rather than what determines real-world capability. DexBench is designed around the latter.
+
+Tasks like blind insertion (T08), slip detection and recovery (T07), and precision connector insertion (T04) are almost entirely absent from current benchmarks precisely because they require tactile sensing to solve. By making these tasks central rather than optional, DexBench establishes a more honest evaluation standard for dexterous hand learning systems.
+
+---
 
 ## Task Suite
 
