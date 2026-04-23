@@ -189,6 +189,7 @@ Beyond success rate, DexBench mandates reporting the following per task:
 ---
 
 ## Installation
+<!-- TODO: update clone URL and installation steps to match the actual released codebase -->
 
 ```bash
 # Clone the repository
@@ -212,6 +213,7 @@ pip install mujoco mujoco-mjx
 ---
 
 ## Quick Start
+<!-- NOTE: update this section once new training/evaluation scripts are released -->
 
 ```bash
 # Run a baseline RL experiment (T01, Allegro hand, no tactile)
