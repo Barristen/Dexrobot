@@ -5,8 +5,8 @@
 ---
 
 ## 架构图
+![组合](star.png)
 
-![VLM Planner + Diffusion Policy overview](VLA-02-vlm-diffusion-overview.png)
 
 ---
 

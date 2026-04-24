@@ -11,7 +11,7 @@
 - 项目主页：[pi.website/blog/pi0](https://www.physicalintelligence.company/blog/pi0)
 
 ---
-
+![pai0](pai0.png)
 ## 核心思路
 
 π0 是 Physical Intelligence 提出的通用机器人 VLA，核心贡献是将**流匹配（Flow Matching）**作为动作生成机制，替代自回归 token 预测，实现连续、高频的动作输出。
